@@ -1,10 +1,10 @@
-=== Configuring Extensions ===
+# Configuring Extensions
 
-{menu_preferences_extensions} provides an interface to configuring extensions,
-globally and per extension. Note that most changes done here require a restart
-of Frescobaldi to take effect.
+{menu}`Edit -> Preferences -> Extensions` provides an interface to configuring
+extensions, globally and per extension. Note that most changes done here require
+a restart of Frescobaldi to take effect.
 
-= General Settings
+## General Settings
 
 The use of extensions can be deactivated globally. Without this checkbox checked
 only the extensions' meta information is accessed and no extension code loaded.
@@ -13,7 +13,7 @@ Setting the path to a common extension base directory is the most important step
 to get extensions running. However, selecting an arbitrary existing directory
 should do no harm as only valid and functional extensions are loaded.
 
-= Installed Extensions
+## Installed Extensions
 
 This tree view lists all installed (i.e. found) extensions, regardless whether
 they are loaded or not. Expanding an entry displays a list with useful meta
@@ -33,7 +33,7 @@ its entry will be highlighted and point to the difference. Such a version
 mismatch is not *generally* considered to be an error, but it *can* cause
 problems, and this information will be helpful tracking down the problem.
 
-= Failed Extensions =
+## Failed Extensions =
 
 Extensions can be faulty so that either the meta information can not be parsed
 properly or they cause errors upon loading. If either is the case an additional
@@ -49,12 +49,8 @@ clicking on the details row opens a message box with more details about the
 issue, including the full stacktrace that can (and should) be sent to the
 extension maintainer(s) to investigate the issue.
 
-= Extension Configuration =
+## Extension Configuration =
 
 Extensions can provide a configuration interface, which - if present - will be
 displayed as the last group on the Preferences page. *Note*: For technical
 reasons it is not possible to edit the configuration of deactivated extensions.
-
-#VARS
-
-menu_preferences_extensions    menu Edit -> Preferences -> Extensions
