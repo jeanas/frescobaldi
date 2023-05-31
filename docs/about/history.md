@@ -1,4 +1,4 @@
-=== History of Frescobaldi ===
+# History of Frescobaldi
 
 Frescobaldi has its roots in LilyKDE, which was a plugin for KDE3's editor Kate.
 LilyKDE was written in Python and released in 2007 on Christmas.
@@ -30,4 +30,3 @@ where a number of students contributed significantly.
 In 2019, Frescobaldi and some supporting libraries were moved to the
 `frescobaldi` organisation on GitHub, reflecting that Frescobaldi now really
 is a community-supported Free Software project.
-
