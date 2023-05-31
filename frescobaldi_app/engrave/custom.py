@@ -76,7 +76,7 @@ class Dialog(QDialog):
         self.buttons = QDialogButtonBox(
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         self.buttons.button(QDialogButtonBox.Ok).setIcon(icons.get("lilypond-run"))
-        userguide.addButton(self.buttons, "engrave_custom")
+        userguide.addButton(self.buttons, "engrave/custom")
 
         self.resolutionCombo.addItems(['100', '200', '300', '600', '1200'])
         self.resolutionCombo.setCurrentIndex(2)

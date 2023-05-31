@@ -32,6 +32,9 @@ from viewers import documents
 
 class ManuscriptViewPanel(viewers.AbstractViewPanel):
     """Manuscript Viewer Tool."""
+
+    docPage = "getting-started/manuscriptview"
+
     def __init__(self, mainwindow):
         super().__init__(mainwindow)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+A"))

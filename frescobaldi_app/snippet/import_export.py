@@ -113,7 +113,7 @@ def load(filename, widget):
     dlg.setWindowTitle(app.caption(_("dialog title", "Import Snippets")))
     tree = QTreeWidget(headerHidden=True, rootIsDecorated=False)
     dlg.setMainWidget(tree)
-    userguide.addButton(dlg.buttonBox(), "snippet_import_export")
+    userguide.addButton(dlg.buttonBox(), "editing/snippets/snippet-import-export")
 
     allnames = frozenset(snippets.names())
     builtins = frozenset(builtin.builtin_snippets)
@@ -228,5 +228,3 @@ _comment = """
   name like 'n123456'. In the latter case, the title is used to determine
   whether a snippet is new or updated.
 """
-
-

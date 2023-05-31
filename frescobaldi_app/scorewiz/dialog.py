@@ -56,7 +56,7 @@ class ScoreWizardDialog(QDialog):
             | QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
-        userguide.addButton(b, "scorewiz")
+        userguide.addButton(b, "getting-started/scorewiz")
         b.button(QDialogButtonBox.Reset).clicked.connect(self.reset)
         self.previewButton = b.addButton('', QDialogButtonBox.ActionRole)
         self.previewButton.clicked.connect(self.showPreview)
@@ -299,5 +299,3 @@ class Settings(Page):
                 fraction = "{}/{}".format(item.numerator(),
                                             item.fraction().denominator)
                 sp.timeSignature.setCurrentText(fraction)
-
-

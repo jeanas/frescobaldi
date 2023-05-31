@@ -168,7 +168,7 @@ class PreferencesDialog(QDialog):
 
 
 class PrefsItemBase(QListWidgetItem):
-    help = "preferences"
+    help = "preferences/index"
     def __init__(self):
         super().__init__()
         self._widget = None
@@ -187,7 +187,7 @@ class PrefsItemBase(QListWidgetItem):
 
 
 class General(PrefsItemBase):
-    help = "prefs_general"
+    help = "preferences/general"
     iconName = "preferences-system"
     def translateUI(self):
         self.setText(_("General Preferences"))
@@ -198,7 +198,7 @@ class General(PrefsItemBase):
 
 
 class MusicViewers(PrefsItemBase):
-    help = "prefs_musicviewers"
+    help = "preferences/musicviewers"
     iconName = "Audio-x-generic"
     def translateUI(self):
         self.setText(_("Music Preferences"))
@@ -209,7 +209,7 @@ class MusicViewers(PrefsItemBase):
 
 
 class LilyPond(PrefsItemBase):
-    help = "prefs_lilypond"
+    help = "preferences/lilypond/index"
     iconName = "lilypond-run"
     def translateUI(self):
         self.setText(_("LilyPond Preferences"))
@@ -220,7 +220,7 @@ class LilyPond(PrefsItemBase):
 
 
 class Midi(PrefsItemBase):
-    help = "prefs_midi"
+    help = "preferences/midi"
     iconName = "audio-volume-medium"
     def translateUI(self):
         self.setText(_("MIDI Settings"))
@@ -231,7 +231,7 @@ class Midi(PrefsItemBase):
 
 
 class Helpers(PrefsItemBase):
-    help = "prefs_helpers"
+    help = "preferences/helpers"
     iconName = "applications-other"
     def translateUI(self):
         self.setText(_("Helper Applications"))
@@ -242,7 +242,7 @@ class Helpers(PrefsItemBase):
 
 
 class Paths(PrefsItemBase):
-    help = "prefs_paths"
+    help = "preferences/paths"
     iconName = "folder-open"
     def translateUI(self):
         self.setText(_("Paths"))
@@ -253,7 +253,7 @@ class Paths(PrefsItemBase):
 
 
 class Documentation(PrefsItemBase):
-    help = "prefs_lilydoc"
+    help = "preferences/lilydoc"
     iconName = "help-contents"
     def translateUI(self):
         self.setText(_("LilyPond Documentation"))
@@ -264,7 +264,7 @@ class Documentation(PrefsItemBase):
 
 
 class Shortcuts(PrefsItemBase):
-    help = "prefs_shortcuts"
+    help = "preferences/shortcuts"
     iconName = "preferences-desktop-keyboard-shortcuts"
     def translateUI(self):
         self.setText(_("Keyboard Shortcuts"))
@@ -275,7 +275,7 @@ class Shortcuts(PrefsItemBase):
 
 
 class Editor(PrefsItemBase):
-    help = "prefs_editor"
+    help = "preferences/editor"
     iconName = "document-properties"
     def translateUI(self):
         self.setText(_("Editor Preferences"))
@@ -286,7 +286,7 @@ class Editor(PrefsItemBase):
 
 
 class FontsColors(PrefsItemBase):
-    help = "prefs_fontscolors"
+    help = "preferences/fontscolors"
     iconName = "applications-graphics"
     def translateUI(self):
         self.setText(_("Fonts & Colors"))
@@ -297,7 +297,7 @@ class FontsColors(PrefsItemBase):
 
 
 class Tools(PrefsItemBase):
-    help = "prefs_tools"
+    help = "preferences/tools/index"
     iconName = "preferences-other"
     def translateUI(self):
         self.setText(_("Tools"))
@@ -308,7 +308,7 @@ class Tools(PrefsItemBase):
 
 
 class Extensions(PrefsItemBase):
-    help = "prefs_extensions"
+    help = "preferences/extensions"
     iconName = "network-plug"
     def translateUI(self):
         self.setText(_("Extensions"))

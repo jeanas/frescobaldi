@@ -95,7 +95,7 @@ class Edit(QDialog):
             b.button(QDialogButtonBox.RestoreDefaults).clicked.connect(self.slotDefaults)
         else:
             b.setStandardButtons(buttons)
-        userguide.addButton(b, "snippet_editor")
+        userguide.addButton(b, "editing/snippets/snippet-editor/index")
 
         # PyQt5.10 en sip4.14.5 delete the Highlighter, even though it is
         # constructed with a parent, that's why we save it in an unused attribute.
@@ -239,5 +239,3 @@ class Matcher(gadgets.matcher.Matcher):
     def readSettings(self):
         self.format = QTextCharFormat()
         self.format.setBackground(textformats.formatData('editor').baseColors['match'])
-
-

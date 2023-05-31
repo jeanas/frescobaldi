@@ -72,7 +72,7 @@ def rhythm_apply(cursor, mainwindow):
         _("Apply Rhythm"), _("Enter a rhythm:"),
         complete = sorted(_history),
         regexp = r'([0-9./* ]|\\breve|\\longa|\\maxima)+',
-        help = "rhythm", icon = icons.get('tools-rhythm'))
+        help = "editing/rhythm", icon = icons.get('tools-rhythm'))
     if not durs:
         return # user cancelled dialog
     durations = durs.split()
@@ -85,4 +85,3 @@ def rhythm_copy(cursor):
 
 def rhythm_paste(cursor):
     ly.rhythm.rhythm_overwrite(lydocument.cursor(cursor), _clipboard)
-

@@ -104,5 +104,3 @@ def getColor(
         return _savedColor
 
 _savedColor = QColor(Qt.white)
-
-

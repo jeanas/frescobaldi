@@ -81,7 +81,7 @@ class ModeShiftDialog(QDialog):
 
         self.buttons = QDialogButtonBox(
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        userguide.addButton(self.buttons, "mode_shift")
+        userguide.addButton(self.buttons, "editing/pitch/mode-shift")
 
         for m in sorted(modes.keys()):
             self.modeCombo.addItem(m)
@@ -165,4 +165,3 @@ class KeyValidator(QValidator):
             elif len(text) > 3:
                 return (QValidator.Invalid, text, pos)
         return (QValidator.Intermediate, text, pos)
-

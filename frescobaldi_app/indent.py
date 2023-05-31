@@ -38,7 +38,8 @@ def indent_variables(document=None):
     If a document (a Frescobaldi/QTextDocument) is specified, the document
     variables are also read.
 
-    For the variables and their default variables, see userguide/docvars.md.
+    For the variables and their default variables, see
+    docs/editing/docvars/index.md.
 
     """
     s = QSettings()
@@ -110,4 +111,3 @@ def re_indent(cursor, indent_blank_lines=False):
     """
     c = lydocument.cursor(cursor, select_all=True)
     indenter(cursor.document()).indent(c, indent_blank_lines)
-

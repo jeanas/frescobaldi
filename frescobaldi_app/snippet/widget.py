@@ -338,7 +338,7 @@ class Widget(QWidget):
 
     def slotHelp(self):
         """Called when the user clicks the small help button."""
-        userguide.show("snippets")
+        userguide.show("editing/snippets/index")
 
     def currentSnippet(self):
         """Returns the name of the current snippet if it is visible."""
@@ -407,5 +407,3 @@ class SearchLineEdit(QLineEdit):
             QApplication.sendEvent(self.parent().treeView, ev)
             return True
         return super().event(ev)
-
-

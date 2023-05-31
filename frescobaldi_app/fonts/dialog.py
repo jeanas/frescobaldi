@@ -156,7 +156,7 @@ class FontsDialog(QDialog):
         self.insert_button = bb.addButton(QDialogButtonBox.Ok)
         self.close_button = bb.addButton(QDialogButtonBox.Close)
         # Add and connect help button
-        userguide.addButton(self._button_box, "documentfonts")
+        userguide.addButton(self._button_box, "editing/document-fonts")
 
         app.translateUI(self)
         self.loadSettings()

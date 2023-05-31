@@ -116,7 +116,7 @@ def getTransposer(document, mainwindow):
         "Please enter two absolute pitches, separated by a space, "
         "using the pitch name language \"{language}\"."
         ).format(language=language), icon = icons.get('tools-transpose'),
-        help = "transpose", validate = validate)
+        help = "editing/pitch/transpose", validate = validate)
 
     if text:
         return ly.pitch.transpose.Transposer(*readpitches(text))
@@ -154,7 +154,7 @@ def getModalTransposer(document, mainwindow):
     text = inputdialog.getText(mainwindow, _("Transpose"), _(
         "Please enter the number of steps to alter by, followed by a key signature. (i.e. \"5 F\")"
         ), icon = icons.get('tools-transpose'),
-        help = "modal_transpose", validate = validate)
+        help = "editing/pitch/modal-transpose", validate = validate)
     if text:
         words = text.split()
         return ly.pitch.transpose.ModalTransposer(int(words[0]), ly.pitch.transpose.ModalTransposer.getKeyIndex(words[1]))
@@ -206,5 +206,3 @@ def transpose(cursor, transposer, mainwindow=None, relative_first_pitch_absolute
             "The transposed music would contain quarter-tone alterations "
             "that are not available in the pitch language \"{language}\"."
             ).format(language = e.language))
-
-

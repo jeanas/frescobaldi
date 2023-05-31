@@ -51,7 +51,7 @@ class Dialog(toly_dialog.ToLyDialog):
         super().__init__(
             parent,
             imp_prgm='abc2ly',
-            userg='abc_import')
+            userg='managing/import/abc')
 
         app.translateUI(self)
         qutil.saveDialogSize(self, "abc_import/dialog/size", QSize(480, 160))

@@ -54,7 +54,7 @@ class QuickInsert(QWidget):
         self.helpButton = QToolButton(
             icon = icons.get("help-contents"),
             autoRaise = True,
-            clicked = lambda: userguide.show("quickinsert"))
+            clicked = lambda: userguide.show("getting-started/quickinsert"))
         self.directionLabel = QLabel()
         self.direction = QComboBox()
         self.direction.addItems(['', '', ''])
@@ -102,7 +102,7 @@ class QuickInsert(QWidget):
             "<p>With the Quick Insert Panel you can add various music "
             "elements to the current note or selected music.</p>\n"
             "<p>See {link} for more information.</p>").format(link=
-                userguide.util.format_link("quickinsert")))
+                userguide.util.format_link("getting-started/quickinsert")))
         self.helpButton.setToolTip(_("Help"))
         self.directionLabel.setText(_("Direction:"))
         for item, text in enumerate((_("Up"), _("Neutral"), _("Down"))):
@@ -120,5 +120,3 @@ class QuickInsert(QWidget):
 
     def dockwidget(self):
         return self._dockwidget()
-
-

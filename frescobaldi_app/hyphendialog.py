@@ -109,7 +109,7 @@ class HyphenDialog(QDialog):
         self.buttons = b = QDialogButtonBox()
         layout.addWidget(b)
         b.setStandardButtons(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        userguide.addButton(b, "lyrics")
+        userguide.addButton(b, "editing/lyrics")
         b.rejected.connect(self.reject)
         b.accepted.connect(self.accept)
 
@@ -154,5 +154,3 @@ class HyphenDialog(QDialog):
             result = None
         self.deleteLater()
         return result
-
-

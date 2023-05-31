@@ -41,7 +41,7 @@ class RestoreDialog(widgets.dialog.Dialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.messageLabel().setWordWrap(True)
-        userguide.addButton(self.buttonBox(), "snippets")
+        userguide.addButton(self.buttonBox(), "editing/snippets/index")
         self.tree = QTreeWidget(headerHidden=True, rootIsDecorated=False)
         self.setMainWidget(self.tree)
 
@@ -123,5 +123,3 @@ class RestoreDialog(widgets.dialog.Dialog):
     def checkOkButton(self):
         """Enables the OK button if there are selected snippets."""
         self.button("ok").setEnabled(any(self.checkedSnippets()))
-
-

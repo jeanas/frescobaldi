@@ -129,7 +129,7 @@ class Widget(QWidget):
         s.setValue('custom-filename', self.LEcustomfile.text())
 
     def helpButtonClicked(self):
-        userguide.show("engrave_layout")
+        userguide.show("engraving/layout/index")
 
     def preview_options(self):
         """Return a list of Debug Mode command line options for LilyPond."""
@@ -165,5 +165,3 @@ class Widget(QWidget):
             if file_to_include:
                 args.append('-ddebug-custom-file=' + file_to_include)
         return args
-
-

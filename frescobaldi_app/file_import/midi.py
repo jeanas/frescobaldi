@@ -49,7 +49,7 @@ class Dialog(toly_dialog.ToLyDialog):
         super().__init__(
             parent,
             imp_prgm='midi2ly',
-            userg='midi_import')
+            userg='managing/import/midi')
 
         app.translateUI(self)
         qutil.saveDialogSize(self, "midi_import/dialog/size", QSize(480, 260))

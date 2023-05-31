@@ -230,7 +230,7 @@ class AbstractViewPanel(panel.Panel):
 
     def slotShowHelp(self):
         import userguide
-        userguide.show(self.viewerName())
+        userguide.show(self.docPage)
 
     def copyImage(self):
         page, rect = self.widget().view.rubberband().selectedPage()

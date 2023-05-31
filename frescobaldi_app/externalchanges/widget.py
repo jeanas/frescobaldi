@@ -92,7 +92,7 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
 
         app.translateUI(self)
         qutil.saveDialogSize(self, 'externalchanges/dialog/size', QSize(400, 200))
-        userguide.addButton(self.buttonBox(), "externalchanges")
+        userguide.addButton(self.buttonBox(), "managing/externalchanges")
         self.button('close').setFocus()
 
     def translateUI(self):
@@ -298,5 +298,3 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         dlg.setAttribute(Qt.WA_DeleteOnClose)
         qutil.saveDialogSize(dlg, "externalchanges/diff/dialog/size", QSize(600, 300))
         dlg.show()
-
-

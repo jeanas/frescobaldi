@@ -85,7 +85,7 @@ class Dialog(toly_dialog.ToLyDialog):
         super().__init__(
             parent,
             imp_prgm="musicxml2ly",
-            userg="musicxml_import")
+            userg="managing/import/musicxml")
 
         app.translateUI(self)
         qutil.saveDialogSize(self, "musicxml_import/dialog/size", QSize(480, 800))

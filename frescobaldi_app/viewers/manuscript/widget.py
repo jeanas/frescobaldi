@@ -37,7 +37,7 @@ class ManuscriptViewWidget(popplerwidget.AbstractPopplerWidget):
             "<p>The Manuscript Viewer displays an original manuscript " +
             "one is copying from.</p>\n"
             "<p>See {link} for more information.</p>").format(link=
-                userguide.util.format_link(self.parent().viewerName())))
+                userguide.util.format_link(self.parent().docPage)))
 
     def createContextMenu(self):
         """Creates the context menu."""

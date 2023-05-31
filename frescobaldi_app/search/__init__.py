@@ -358,7 +358,7 @@ class Search(plugin.MainWindowPlugin, QWidget):
     def event(self, ev):
         """Reimplemented to catch F1 for help and Tab so it does not reach the View."""
         if ev.type() == QEvent.ShortcutOverride and ev.matches(QKeySequence.HelpContents):
-            userguide.show("search_replace")
+            userguide.show("editing/search-replace")
             ev.accept()
             return True
         elif ev.type() == QEvent.KeyPress:

@@ -66,7 +66,7 @@ class SessionManagerDialog(QDialog):
         layout.addWidget(b)
         b.setStandardButtons(QDialogButtonBox.Close)
         b.rejected.connect(self.accept)
-        userguide.addButton(b, "sessions")
+        userguide.addButton(b, "managing/sessions")
         self.sessions.load()
         app.translateUI(self)
         self.sessions.changed.connect(self.enableButtons)
@@ -253,7 +253,7 @@ class SessionEditor(QDialog):
         b.setStandardButtons(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
-        userguide.addButton(b, "sessions")
+        userguide.addButton(b, "managing/sessions")
         app.translateUI(self)
 
     def translateUI(self):
@@ -395,4 +395,3 @@ class SessionEditor(QDialog):
                 return False
 
         return True
-

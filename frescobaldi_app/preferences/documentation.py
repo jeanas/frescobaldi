@@ -67,7 +67,7 @@ class Paths(preferences.Group):
         self.setTitle(_("Paths to LilyPond Documentation"))
         self.paths.setToolTip(_(
             "Add paths or URLs. See \"What's This\" for more information."))
-        self.paths.setWhatsThis(userguide.html("prefs_lilydoc"))
+        self.paths.setWhatsThis(userguide.html("preferences/lilydoc"))
 
     def loadSettings(self):
         paths = qsettings.get_string_list(QSettings(), "documentation/paths")
@@ -168,5 +168,3 @@ class LilyDocPathsList(widgets.listedit.ListEdit):
             item.setText(urlreq.path())
             return True
         return False
-
-
