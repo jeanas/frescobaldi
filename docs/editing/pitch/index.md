@@ -1,8 +1,8 @@
-=== Pitch Manipulation ===
+# Pitch Manipulation
 
 
 Frescobaldi offers the following pitch-manipulating functions,
-all in the menu {menu}:
+all in the menu {menu}`Tools > Pitch`:
 
 Pitch language
 : This translates pitch names in the whole document or a selection.
@@ -19,11 +19,8 @@ Convert absolute music to relative
   braces.
 
 
-
-#SUBDOCS
+```{toctree}
 transpose
-modal_transpose
-mode_shift
-
-#VARS
-menu menu tools -> submenu title|&Pitch
+modal-transpose
+mode-shift
+```
