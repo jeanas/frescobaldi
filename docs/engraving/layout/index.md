@@ -1,10 +1,10 @@
-=== Layout control mode ===
+# Layout control mode
 
 The Layout Control options display or highlight various layout aspects and will
 help you fine-tuning your scores.
 
 The options are accessible through the *Layout Control options* dockable panel
-({menu_layout_control}).
+({menu}`Tools -> Layout Control Options`).
 
 The following Layout Control options are currently implemented:
 
@@ -92,10 +92,6 @@ Include Custom File
     so you are responsible yourself that LilyPond can find it.
 
 
-
-
-#SUBDOCS
-engrave_layout_configure
-
-#VARS
-menu_layout_control menu tools -> Layout Control &Options
+```{toctree}
+configure
+```
