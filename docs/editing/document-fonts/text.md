@@ -1,6 +1,6 @@
-=== Text Fonts ===
+# Text Fonts
 
-== Browsing Text Fonts ==
+## Browsing Text Fonts
 
 The `Text Fonts` tab populates a list of all text fonts that are available to
 LilyPond (which may differ from fonts seen by other programs). Each font may or
@@ -23,19 +23,15 @@ of interest:
 * *\b*: word boundaries: *tu* will show *Century Schoolbook* and *Ubuntu Mono*
 while *tu\b* will suppress the *Century*.
 
-== Selecting Text Fonts ==
+## Selecting Text Fonts
 
 A context menu in the tree view shows the three fonts currently selected as
 *Roman*, *Sans* and *Typewriter* fonts. Clicking on any of the three menu items
 will select the currently selected font for the corresponding font family and
-trigger the {preview} to be updated.
+trigger the [Preview](preview.md) to be updated.
 
-=== Miscellaneous Font Information ===
+## Miscellaneous Font Information
 
 The last tab lists some additional information about the font system, retrieved
 from the *fontconfig* library. These too refer to the current LilyPond
 installation and don't necessarily have to match the desktop environment's data.
-
-#VARS
-
-preview help documentfonts_preview
