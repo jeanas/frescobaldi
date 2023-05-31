@@ -1,15 +1,17 @@
-=== Editing Files ===
+# Editing Files
 
 In this part the features of the editor are discussed, e.g. how to control
 auto-indenting, how to use search and replace, etcetera.
 
-#SUBDOCS
-search_replace
+```{toctree}
+search-replace
 auto-completion
-indent_format
-pitch
+indent-format
+edit-in-place
+pitch/index
 rhythm
 lyrics
-docvars
-snippets
-documentfonts
+docvars/index
+snippets/index
+document-fonts/index
+```
