@@ -1,4 +1,4 @@
-=== The Quick Insert Panel ===
+# The Quick Insert Panel
 
 With the tools in the Quick Insert Panel you can add various music elements
 to the current note or selected music.
@@ -8,12 +8,12 @@ appear in a neutral position (e.g. determined by stem direction), or above
 or below the staff by prepending a `-`, `^` or `_` character.
 
 Click on a tab to select a tool. You can cycle through the tools with Ctrl
-(or {command}) and the mouse wheel.
+(or ⌘) and the mouse wheel.
 All buttons in the Quick Insert Panel have configurable keyboard shortcuts;
 you can change them by right-clicking a button.
 
 
-== Articulations ==
+## Articulations
 
 These musical symbols can be added to a note or rest or a selected range
 of music.
@@ -26,7 +26,7 @@ for articulations if they exist
 (e.g. `-.` instead of `-\staccato`).
 
 
-== Dynamics ==
+## Dynamics
 
 Dynamics can also be added to a note or rest.
 If you select a range of music, you can add spanners which will automatically
@@ -34,7 +34,7 @@ terminate at the last note, rest or chord in the selection.
 If you then click a sign, it will replace the terminator.
 
 
-== Spanners ==
+## Spanners
 
 This tool lets you add arpeggio, glissandos and other spanners like slurs,
 phrasing slurs, manual beams or trills.
@@ -46,11 +46,6 @@ if no music is selected,
 or to the first and the last note or chord in the selection.
 
 
-== Bar Lines ==
+## Bar Lines
 
 Here you can insert bar lines or various breathing signs.
-
-
-
-#VARS
-command html &#x2318;
