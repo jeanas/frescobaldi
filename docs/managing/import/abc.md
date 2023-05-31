@@ -1,7 +1,7 @@
-=== Import ABC ===
+# Import ABC
 
-Using {menu_import}, you can import an ABC file using the command line tool
-`abc2ly` from the LilyPond package.
+Using {menu}`File -> Import/Export -> Import abc...`, you can import an ABC file
+using the command line tool `abc2ly` from the LilyPond package.
 
 ABC is a notation standard which like LilyPond is designed to notate music in
 plain text. It was designed primarily for folk and traditional tunes of Western
@@ -13,13 +13,13 @@ imported LilyPond source code.
 
 Your settings in both tabs are remembered until the next time you use this dialog.
 
-== The abc2ly tab ==
+## The abc2ly tab
 
 In this tab you have the following options:
 
  * Import beaming
 
-This option can be used to retain the beaming from the ABC notation.
+   This option can be used to retain the beaming from the ABC notation.
 
 You can also change the LilyPond version to use.
 
@@ -29,7 +29,7 @@ and abc2ly in particular you can edit this text directly, otherwise you
 can just ignore this.
 
 
-== The *after import* tab ==
+## The *after import* tab
 
 After `abc2ly` is run and the new ly-file is created you can set
 Frescobaldi to automatically do some adjustments on the new file.
@@ -51,7 +51,3 @@ Remove fraction duration scaling:
 Engrave directly:
 :  LilyPond runs directly.
    (This is identical to running LilyPond -> Engrave (preview).)
-
-
-#VARS
-menu_import menu file -> &Import -> Import abc...
