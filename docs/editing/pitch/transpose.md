@@ -1,5 +1,5 @@
-=== Transpose ===
-    
+# Transpose
+
 When transposing music, two absolute pitches need to be given to specify
 the distance to transpose over. The pitches may include octave marks.
 The pitches must be entered in the pitch name language used in the document.
@@ -9,19 +9,19 @@ just as the `\transpose` LilyPond command would do.
 
 E.g. when transposing a minor third upwards, you would enter:
 
-```lilypond
+```
 c es
 ```
 
 To transpose down a major second, you can enter:
 
-```lilypond
+```
 c bes,
 ```
 
 or:
 
-```lilypond
+```
 d c
 ```
 
@@ -31,4 +31,3 @@ pitch name language that is used.
 
 The transpose function can transpose both relative and absolute music,
 correctly handling key signatures, chordmode and octave checks.
-
