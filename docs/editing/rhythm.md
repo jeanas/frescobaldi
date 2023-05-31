@@ -1,9 +1,9 @@
-=== Rhythm manipulation ===
+# Rhythm manipulation
 
 The rhythm functions of Frescobaldi alter the durations written after notes,
-chords, rests, etcetera. Using those functions, all in menu {menu}, it
-is possible to double or halve the length of notes, to add or remove dots
-and to remove scaling factors.
+chords, rests, etcetera. Using those functions, all in menu {menu}`Tools ->
+Rhythm`, it is possible to double or halve the length of notes, to add or remove
+dots and to remove scaling factors.
 
 Also it is possible to change the way rhythm is specified: for every note
 (explicit), or only when the duration changes (implicit). Some users may prefer
@@ -20,9 +20,3 @@ In the "Apply Rhythm" dialog you can enter a series of durations, e.g.:
 ```
 
 which will then, repetitively, be applied to a selection of notes.
-
-
-#VARS
-menu menu tools -> submenu title|&Rhythm
-
-
