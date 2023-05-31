@@ -1,4 +1,4 @@
-=== Music Preferences ===
+# Music Preferences
 
 Here you can configure how music is displayed and printed.
 
@@ -12,5 +12,3 @@ On systems that use the CUPS server, such as Mac OS X and GNU/Linux, PDF's
 can be sent directly to the printer if you want to.
 
 The print resolution is only used when raster-based printing can't be avoided.
-
-
