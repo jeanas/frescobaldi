@@ -1,6 +1,6 @@
-=== Paths ===
+# Paths
 
-== Hyphenation dictionaries ==
+## Hyphenation dictionaries
 
 Here, directories can be added that contain `hyph_*.dic` files,
 where the `*` stands for different language codes.
@@ -8,7 +8,7 @@ where the `*` stands for different language codes.
 These hyphenation dictionaries are used by Frescobaldi to break
 lyrics text into syllables.
 
-== Music fonts ==
+## Music fonts
 
 Since version 2.19.12 LilyPond natively supports the selection of
 alternative music fonts, and Frescobaldi supports both the management
