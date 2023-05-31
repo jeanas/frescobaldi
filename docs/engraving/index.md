@@ -1,4 +1,4 @@
-=== Engraving Scores ===
+# Engraving Scores
 
 To engrave a score, Frescobaldi runs LilyPond with the correct commandline
 options. There are four modes Frescobaldi can compile scores in:
@@ -18,18 +18,17 @@ The *Custom mode* opens a dialog allowing you to specify the LilyPond command
 in detail. This dialog also has options to let LilyPond engrave a score to
 PostScript, SVG or PNG images, or to a PDF using the EPS backend.
 
-All commands to run LilyPond can be found in the *LilyPond* menu. 
+All commands to run LilyPond can be found in the *LilyPond* menu.
 Pressing the LilyPond symbol in the toolbar engraves the document
-in preview mode, or in custom mode if Shift is held. And if you enable the *Automatic engrave* option, 
+in preview mode, or in custom mode if Shift is held. And if you enable the *Automatic engrave* option,
 Frescobaldi will run LilyPond automatically every time the document is modified (in preview mode).
 
-#SUBDOCS
-engrave_preview
-engrave_publish
-engrave_layout
-engrave_custom
-
-#SUBDOCS_TODO
-engrave_automatic
-engrave_partial
-
+```{toctree}
+preview
+publish
+layout/index
+custom
+```
+% TODO
+% automatic
+% partial
