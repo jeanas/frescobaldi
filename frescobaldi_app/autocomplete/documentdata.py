@@ -147,7 +147,7 @@ class DocumentDataSource(plugin.DocumentPlugin):
                 names.append(os.path.join(reldir, f))
 
         # names from LilyPond itself
-        datadir = documentinfo.lilyinfo(self.document()).datadir()
+        datadir = documentinfo.lilyinfo(self.document()).datadir
         if datadir:
             basedir = os.path.join(datadir, 'ly')
             # get the filenames but avoid the -init files here

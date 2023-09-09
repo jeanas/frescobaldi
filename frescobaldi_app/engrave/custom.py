@@ -218,7 +218,7 @@ class Dialog(QDialog):
             j.environment.pop('LC_MESSAGES', None)
         j.set_title("{} {} [{}]".format(
             os.path.basename(j.lilypond_info.command),
-                j.lilypond_info.versionString(), document.documentName()))
+                j.lilypond_info.versionString, document.documentName))
         return j
 
     def keyPressEvent(self, ev):

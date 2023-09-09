@@ -511,7 +511,7 @@ class InstalledMusicFonts(AbstractMusicFontList):
     def __init__(self, lilypond_info):
         super().__init__()
         self.lilypond_info = lilypond_info
-        self.font_root = os.path.join(lilypond_info.datadir(), 'fonts')
+        self.font_root = os.path.join(lilypond_info.datadir, 'fonts')
         self.add_tree(self.font_root)
 
     def font_dir(self, type):

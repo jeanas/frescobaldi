@@ -104,7 +104,7 @@ class LilyPondJob(Job):
                 directory=directory,
                 environment=(
                     {'LD_LIBRARY_PATH': libdir}
-                    if (libdir := self.lilypond_info.libdir())
+                    if (libdir := self.lilypond_info.libdir)
                     else {}),
                 title=title,
                 priority=2)
@@ -121,7 +121,7 @@ class LilyPondJob(Job):
             self.environment['LC_MESSAGES'] = 'C'
         self.set_title("{} {} [{}]".format(
             os.path.basename(self.lilypond_info.command),
-            self.lilypond_info.versionString(), doc.documentName()))
+            self.lilypond_info.versionString, doc.documentName()))
 
     def add_additional_arg(self, arg):
         """Append an additional command line argument if it is not
@@ -160,7 +160,7 @@ class LilyPondJob(Job):
         """Compose the command line for a LilyPond job using all options.
         Individual steps may be overridden in subclasses."""
         self.command = cmd = (
-            [self.lilypond_info.abscommand() or self.lilypond_info.command])
+            [self.lilypond_info.abscommand or self.lilypond_info.command])
         cmd.extend(serialize_d_options(self._d_options))
         cmd.extend(self.arguments())
         cmd.extend(self.paths(self.includepath))

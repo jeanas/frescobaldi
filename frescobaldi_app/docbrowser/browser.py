@@ -152,7 +152,7 @@ class Browser(QWidget):
         i = self.chooser.currentIndex()
         self.chooser.clear()
         for doc in lilydoc.manager.docs():
-            v = doc.versionString()
+            v = doc.versionString
             if doc.isLocal():
                 t = _("(local)")
             else:

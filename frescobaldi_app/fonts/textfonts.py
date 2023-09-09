@@ -112,7 +112,7 @@ class TextFontsWidget(QWidget):
         self.status_label.setText(
             _("{count} font families detected by {version}").format(
                 count=self.tree_view.model().rowCount(),
-                version=self.lilypond_info.prettyName()))
+                version=self.lilypond_info.prettyName))
 
     def display_waiting(self):
         self.status_label.setText(_("Running LilyPond to list fonts ..."))
@@ -372,7 +372,7 @@ class TextFonts(QObject):
         # It's not correct to first add the notation fonts to the font debug
         # only to filter them again later. Besides, there might be other valid
         # fonts caught by the filter.
-        font_dir = os.path.join(self.lilypond_info.datadir(), 'fonts', 'otf')
+        font_dir = os.path.join(self.lilypond_info.datadir, 'fonts', 'otf')
         for lily_font in os.listdir(font_dir):
             self.font_db.addApplicationFont(
                 os.path.join(font_dir, lily_font)
@@ -536,7 +536,7 @@ class TextFonts(QObject):
         # TODO: Use the global JobQueue
         info = self.lilypond_info
         j = self.job = job.Job(
-            [info.abscommand() or info.command] + ['-dshow-available-fonts'])
+            [info.abscommand or info.command] + ['-dshow-available-fonts'])
         j.set_title(_("Available Fonts"))
         j.done.connect(self.process_results)
         if log_widget:

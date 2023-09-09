@@ -67,8 +67,8 @@ class LilyChooser(QComboBox):
             index = 0
             for i, info in enumerate(infos):
                 icon = 'lilypond-run' if info.version() else 'dialog-error'
-                self.addItem(icons.get(icon), info.prettyName())
-                if info.abscommand() == cur.abscommand() or info.command == cur.command:
+                self.addItem(icons.get(icon), info.prettyName)
+                if info.abscommand == cur.abscommand or info.command == cur.command:
                     index = i
             self.setCurrentIndex(index)
         finally:

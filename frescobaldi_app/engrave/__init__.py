@@ -302,7 +302,7 @@ class Engraver(plugin.MainWindowPlugin):
     def openLilyPondDatadir(self):
         """Menu action Open LilyPond Data Directory."""
         info = documentinfo.lilyinfo(self.mainwindow().currentDocument())
-        datadir = info.datadir()
+        datadir = info.datadir
         if datadir:
             import helpers
             helpers.openUrl(QUrl.fromLocalFile(datadir))

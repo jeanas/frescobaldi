@@ -154,7 +154,7 @@ class Dialog(QDialog):
         self.setLilyPondInfo(self.lilyChooser.lilyPondInfo())
 
     def setCaption(self):
-        version = self._info and self._info.versionString() or _("<unknown>")
+        version = self._info and self._info.versionString or _("<unknown>")
         title = _("Convert-ly from LilyPond {version}").format(version=version)
         self.setWindowTitle(app.caption(title))
 
@@ -163,7 +163,7 @@ class Dialog(QDialog):
             return
         self._info = info
         self.setCaption()
-        self.toVersion.setText(info.versionString())
+        self.toVersion.setText(info.versionString)
         self.setConvertedText()
         self.setDiffText()
         self.messages.clear()

@@ -24,19 +24,18 @@ Settings stuff and handling for different LilyPond versions.
 
 import glob
 import codecs
+import functools
 import os
 import pathlib
 import platform
 import re
 import shutil
+import subprocess
 
 from PyQt5.QtCore import QEventLoop, QSettings, QStandardPaths, QTimer
 from PyQt5.QtWidgets import QProgressDialog
 
 import app
-import cachedproperty
-import job
-import job.queue
 import util
 import qutil
 
@@ -66,7 +65,7 @@ def infos():
         s.endArray()
         if not _infos:
             info = default()
-            if info.abscommand():
+            if info.abscommand:
                 _infos.append(info)
         app.aboutToQuit.connect(saveinfos)
     return _infos
@@ -137,24 +136,6 @@ def suitable(version):
     return preferred()
 
 
-class CachedProperty(cachedproperty.CachedProperty):
-    def wait(self, msg=None, timeout=0):
-        """Returns the value for the property, waiting for it to be computed.
-
-        If this lasts longer than 2 seconds, a progress dialog is displayed.
-
-        """
-        if self.get() is None:
-            self.start()
-            if self.get() is None:
-                if msg is None:
-                    msg = _("Running LilyPond, this can take some time...")
-                qutil.waitForSignal(self.computed, msg, timeout)
-        return self.get()
-
-    __call__ = wait
-
-
 class LilyPondInfo:
     ly_tool_names = (
         'lilypond-book',
@@ -174,7 +155,7 @@ class LilyPondInfo:
     def command(self):
         return self._command
 
-    @CachedProperty.cachedproperty
+    @functools.cached_property
     def abscommand(self):
         """The absolute path of the command."""
         if platform.system() == "Windows":
@@ -210,16 +191,16 @@ class LilyPondInfo:
 
     #NOTE/TODO:
     # This has only been tested for downloaded and self-compiled releases on Linux so far
-    @CachedProperty.cachedproperty(depends=abscommand)
+    @functools.cached_property
     def libdir(self):
-        exe = self.abscommand()
+        exe = self.abscommand
         if exe:
             parent = os.path.dirname(os.path.dirname(exe))
             return os.path.join(parent, 'lib')
         else:
             return False
 
-    @CachedProperty.cachedproperty(depends=abscommand)
+    @functools.cached_property
     def displaycommand(self):
         """The path to the command in a format pretty to display.
 
@@ -232,7 +213,7 @@ class LilyPondInfo:
         The empty string is returned if LilyPond is not installed on the users'
         system.
         """
-        command = self.abscommand()
+        command = self.abscommand
         if command:
             outstrip='out/bin/lilypond'
             if command.endswith(outstrip):
@@ -244,46 +225,47 @@ class LilyPondInfo:
         else:
             return self.command
 
-    @CachedProperty.cachedproperty(depends=abscommand)
+    @functools.cached_property
     def versionString(self):
-        if not self.abscommand():
+        if not self.abscommand:
             return ""
 
-        j = job.Job([self.abscommand(), '--version'])
+        try:
+            # Note that this is very cheap compared to a normal run of
+            # LilyPond: when called with --version, LilyPond exits
+            # early, without initializing Guile, etc.  Therefore, it's
+            # totally fine to have subprocess run synchronously, and
+            # not asynchronously with the job machinery.
+            output = subprocess.run([self.abscommand, '--version'],
+                                    check=True, capture_output=True,
+                                    encoding="utf-8").stdout
+        except subprocess.CalledProcessError:
+            return ""
 
-        @j.done.connect
-        def done():
-            success = j.success
-            if success:
-                output = ' '.join([line[0] for line in j.history()])
-                m = re.search(r"\d+\.\d+(.\d+)?", output)
-                self.versionString = m.group() if m else ""
-            else:
-                self.versionString = ""
+        m = re.search(r"\d+\.\d+(.\d+)?", output)
+        return m.group() if m else ""
 
-        app.job_queue().add_job(j, 'generic')
-
-    @CachedProperty.cachedproperty(depends=versionString)
+    # TODO: turn into a @functools.cached_property (remove parentheses on callers)
     def version(self):
-        if self.versionString():
-            return tuple(map(int, self.versionString().split('.')))
+        if self.versionString:
+            return tuple(map(int, self.versionString.split('.')))
         return ()
 
-    @CachedProperty.cachedproperty(depends=abscommand)
+    @functools.cached_property
     def bindir(self):
         """Returns the directory the LilyPond command is in."""
-        if self.abscommand():
-            return os.path.dirname(self.abscommand())
+        if self.abscommand:
+            return os.path.dirname(self.abscommand)
         return False
 
-    @CachedProperty.cachedproperty(depends=bindir)
+    @functools.cached_property
     def prefix(self):
         """Returns the prefix LilyPond was installed to."""
-        if self.bindir():
-            return os.path.dirname(self.bindir())
+        if self.bindir:
+            return os.path.dirname(self.bindir)
         return False
 
-    @CachedProperty.cachedproperty(depends=(prefix, versionString))
+    @functools.cached_property
     def datadir(self):
         """Returns the datadir of this LilyPond instance.
 
@@ -291,34 +273,18 @@ class LilyPondInfo:
         If this method returns False, the datadir could not be determined.
 
         """
-        if not self.abscommand():
+        if not self.abscommand:
             return False
 
-        # First ask LilyPond itself.
-        j = job.Job([self.abscommand(), '-e',
-            "(display (ly:get-option 'datadir)) (newline) (exit)"])
-        @j.done.connect
-        def done():
-            success = j.success
-            if success:
-                output = [line[0] for line in j.history()]
-                d = output[1].strip('\n')
-                if os.path.isabs(d) and os.path.isdir(d):
-                    self.datadir = d
-                    return
-
-            # Then find out via the prefix.
-            if self.prefix():
-                dirs = ['current']
-                if self.versionString():
-                    dirs.append(self.versionString())
-                for suffix in dirs:
-                    d = os.path.join(self.prefix(), 'share', 'lilypond', suffix)
-                    if os.path.isdir(d):
-                        self.datadir = d
-                        return
-            self.datadir = False
-        app.job_queue().add_job(j, 'generic')
+        if self.prefix:
+            dirs = ['current']
+            if self.versionString:
+                dirs.append(self.versionString)
+            for suffix in dirs:
+                d = os.path.join(self.prefix, 'share', 'lilypond', suffix)
+                if os.path.isdir(d):
+                    return d
+            return False
 
     def toolcommand(self, original_command, use_ly_tool=True):
         """Return a list containing the commandline to run a tool, e.g. convert-ly.
@@ -338,9 +304,9 @@ class LilyPondInfo:
         else:
             command = original_command
 
-        bindir = self.bindir()
+        bindir = self.bindir
         if bindir:
-            toolpath = os.path.join(self.bindir(), command)
+            toolpath = os.path.join(self.bindir, command)
         else:
             toolpath = command
 
@@ -354,7 +320,7 @@ class LilyPondInfo:
             command = [toolpath]
         return command
 
-    @property
+    @functools.cached_property
     def isAutoManaged(self):
         """Return true if the LilyPond installation was auto-installed by Frescobaldi."""
         command_path = pathlib.Path(self.command)
@@ -365,20 +331,20 @@ class LilyPondInfo:
     def forget(self):
         """If this is an auto-managed installation, then wipe it from the file system."""
         if self.isAutoManaged:
-            shutil.rmtree(self.prefix())
+            shutil.rmtree(self.prefix)
 
-    @CachedProperty.cachedproperty(depends=versionString)
+    @functools.cached_property
     def prettyName(self):
         """Return a pretty-printable name for this LilyPond instance."""
         # Don't show the internal path for auto-managed installations
         if self.isAutoManaged:
             return "{name} {version}".format(name=self.name,
-                                             version=self.versionString())
+                                             version=self.versionString)
         else:
             return "{name} {version} ({command})".format(
                 name = self.name,
-                version = self.versionString(),
-                command = self.displaycommand())
+                version = self.versionString,
+                command = self.displaycommand)
 
     def ly_tool(self, name):
         """Get the configured command for the ly tool (e.g. midi2ly).
@@ -408,12 +374,12 @@ class LilyPondInfo:
         cmd = settings.value("command", "", str)
         if cmd:
             info = cls(cmd)
-            if info.abscommand.wait():
+            if info.abscommand:
                 info.autoVersionIncluded = settings.value("auto", True, bool)
                 info.name = settings.value("name", "LilyPond", str)
                 for name in cls.ly_tool_names:
                     info.set_ly_tool(name, settings.value(name, name, str))
-                if int(os.path.getmtime(info.abscommand())) == int(settings.value("mtime", 0, float)):
+                if int(os.path.getmtime(info.abscommand)) == int(settings.value("mtime", 0, float)):
                     info.versionString = settings.value("version", "", str)
                     datadir = settings.value("datadir", "", str)
                     if datadir and os.path.isdir(datadir):
@@ -423,10 +389,10 @@ class LilyPondInfo:
     def write(self, settings):
         """Writes ourselves to a QSettings instance. We should be valid."""
         settings.setValue("command", self.command)
-        settings.setValue("version", self.versionString())
-        settings.setValue("datadir", self.datadir() or "")
-        if self.abscommand():
-            settings.setValue("mtime", int(os.path.getmtime(self.abscommand())))
+        settings.setValue("version", self.versionString)
+        settings.setValue("datadir", self.datadir or "")
+        if self.abscommand:
+            settings.setValue("mtime", int(os.path.getmtime(self.abscommand)))
         settings.setValue("auto", self.autoVersionIncluded)
         settings.setValue("name", self.name)
         for name in self.ly_tool_names:
@@ -443,9 +409,9 @@ class LilyPondInfo:
         run directly.
 
         """
-        if self.bindir():
+        if self.bindir:
             for python in ('python-windows.exe', 'pythonw.exe', 'python.exe'):
-                interpreter = os.path.join(self.bindir(), python)
+                interpreter = os.path.join(self.bindir, python)
                 if os.access(interpreter, os.X_OK):
                     return interpreter
         return 'pythonw.exe'

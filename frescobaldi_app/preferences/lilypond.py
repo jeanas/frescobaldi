@@ -370,7 +370,7 @@ class InfoItem(QListWidgetItem):
                 icon = "lilypond-run"
             else:
                 icon = "dialog-error"
-            text = self.state.info.prettyName()
+            text = self.state.info.prettyName
             default = self.listWidget().parentWidget().parentWidget()._defaultCommand
             if self.state.info.command == default:
                 text += " [{}]".format(_("default"))
@@ -510,7 +510,7 @@ class AddMenu(QMenu):
         disabled_versions = set()
         for item in self.parent().items():
             if isinstance(item.state, InstalledState) and item.state.info.isAutoManaged:
-                disabled_versions.add(item.state.info.versionString())
+                disabled_versions.add(item.state.info.versionString)
             elif isinstance(item.state, DownloadingState):
                 disabled_versions.add(item.state.version_string)
 

@@ -287,7 +287,7 @@ class FontsPreviewWidget(QWidget):
             result = [
                 '\\version "{}"\n'.format(
                     self.window().available_fonts.music_fonts(
-                    ).lilypond_info.versionString()
+                    ).lilypond_info.versionString
                 ),
                 f'{global_size}\n' if global_size else '',
                 # TODO: "Protect" this regarding openLilyLib.

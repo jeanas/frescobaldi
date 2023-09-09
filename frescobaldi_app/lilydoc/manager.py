@@ -72,7 +72,7 @@ def loaded():
 
     """
     for d in docs():
-        if d.versionString() is None:
+        if d.versionString is None:
             return False
     return True
 
@@ -85,7 +85,7 @@ def _check_doc_versions():
 
     """
     for d in _documentations:
-        if d.versionString() is None:
+        if d.versionString is None:
             def makefunc(doc):
                 def func():
                     doc.versionLoaded.disconnect(func)
@@ -171,5 +171,3 @@ def urls():
     if not urls:
         urls.append(QUrl("http://lilypond.org/doc/stable"))
     return urls
-
-

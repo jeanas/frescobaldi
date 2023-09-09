@@ -525,7 +525,7 @@ class MainWindow(QMainWindow):
                 d.setModified(False)
         elif ndoc == "version":
             import lilypondinfo
-            d.setPlainText(f'\\version "{lilypondinfo.preferred().versionString()}"\n\n')
+            d.setPlainText(f'\\version "{lilypondinfo.preferred().versionString}"\n\n')
             d.setModified(False)
 
     def openDocument(self):

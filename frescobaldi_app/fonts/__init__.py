@@ -143,7 +143,7 @@ _available_fonts = {}
 
 def available(lilypond_info):
     """Returns the AvailableFonts object for a given LilyPond version."""
-    key = lilypond_info.abscommand() or lilypond_info.command()
+    key = lilypond_info.abscommand or lilypond_info.command()
     if key not in _available_fonts.keys():
         _available_fonts[key] = AvailableFonts(lilypond_info)
     return _available_fonts[key]
