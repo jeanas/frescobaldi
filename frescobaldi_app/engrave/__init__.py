@@ -66,7 +66,6 @@ class Engraver(plugin.MainWindowPlugin):
         mainwindow.currentDocumentChanged.connect(self.updateActions)
         app.jobStarted.connect(self.updateActions)
         app.jobFinished.connect(self.updateActions)
-        app.jobFinished.connect(self.checkLilyPondInstalled)
         app.jobFinished.connect(self.openDefaultView)
         app.sessionChanged.connect(self.slotSessionChanged)
         app.saveSessionData.connect(self.slotSaveSessionData)
@@ -348,22 +347,6 @@ class Engraver(plugin.MainWindowPlugin):
         s = QSettings()
         s.beginGroup("engraving")
         ac.engrave_autocompile.setChecked(s.value("autocompile", False, bool))
-
-    def checkLilyPondInstalled(self, document, j, success):
-        """Called when LilyPond is run for the first time.
-
-        Displays a helpful dialog if the process failed to start.
-
-        """
-        app.jobFinished.disconnect(self.checkLilyPondInstalled)
-        if not success and j.failed_to_start():
-            QMessageBox.warning(self.mainwindow(),
-                _("No LilyPond installation found"), _(
-                "Frescobaldi uses LilyPond to engrave music, "
-                "but LilyPond is not installed in the default locations "
-                "and it cannot be found in your PATH.\n\n"
-                "Please install LilyPond or, if you have already installed it, "
-                "add it in the Preferences dialog."))
 
 
 
