@@ -132,6 +132,9 @@ def instantiate():
     QApplication.setOrganizationDomain(appinfo.domain)
     if platform.system() == "Darwin":
         qApp._menubar = QMenuBar()
+        import macosx.setup
+        macosx.setup.initialize()
+
     appInstantiated()
 
 def oninit(func):

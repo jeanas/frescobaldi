@@ -188,6 +188,12 @@ def main(debug=False):
         sys.exit(0)
 
     urls = list(map(url, args.files))
+    if platform.system() == "Darwin":
+        import macosx.file_open_eventhandler
+        # On macOS, if a file is clicked on the Finder and this launches
+        # Frescobaldi, the file name is not given in the command-line arguments
+        # but communicated through events.
+        urls += macosx.file_open_eventhandler.initial_files_opened()
 
     if not app.qApp.isSessionRestored():
         if not args.new and remote.enabled():
@@ -217,10 +223,6 @@ def main(debug=False):
     import musicpos         # shows music time in statusbar
     import autocomplete     # auto-complete input
     import wordboundary     # better wordboundary behaviour for the editor
-
-    if platform.system() == "Darwin":
-        import macosx.setup
-        macosx.setup.initialize()
 
     if app.qApp.isSessionRestored():
         # Restore session, we are started by the session manager

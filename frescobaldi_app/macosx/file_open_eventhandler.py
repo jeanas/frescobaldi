@@ -32,7 +32,7 @@ import app
 
 
 handler = None
-
+_initial_files_opened = []
 
 def openUrl(url):
     """Open Url.
@@ -52,6 +52,15 @@ def openUrl(url):
         win.setCurrentDocument(d)
 
 
+# This is a little tricky: when we receive a FileOpen event, there
+# are two cases. Either the user opened a file in the Finder while
+# Frescobaldi was not open, in which case Frescobaldi gets fired up.
+# Or Frescobaldi was already open, in which case the file is just
+# opened in a new tab of the existing window. In the former case,
+# we must not create a new window, instead we must add the document
+# to the list of initial documents for the main window that is to be
+# created soon.
+
 class FileOpenEventHandler(QObject):
     def eventFilter(self, obj, ev):
         if ev.type() == QEvent.FileOpen:
@@ -59,10 +68,26 @@ class FileOpenEventHandler(QObject):
             return True
         return False
 
+class InitializationFileOpenEventHandler(QObject):
+    def eventFilter(self, obj, ev):
+        if ev.type() == QEvent.FileOpen:
+            _initial_files_opened.append(ev.url())
+            return True
+        return False
 
 def initialize():
     global handler
+    # First get the initial events
+    handler = InitializationFileOpenEventHandler()
+    app.qApp.installEventFilter(handler)
+    app.qApp.processEvents()
+    app.qApp.removeEventFilter(handler)
+    # Then leave a handler for other events
     handler = FileOpenEventHandler()
     app.qApp.installEventFilter(handler)
 
 
+def initial_files_opened():
+    """Return the list of files that were triggered the launch of Frescobaldi
+    by being opened in the Finder."""
+    return _initial_files_opened

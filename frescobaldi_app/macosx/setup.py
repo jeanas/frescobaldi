@@ -18,9 +18,9 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-This is only imported on Mac OS X, from main.py.
+This is only imported on macOS.
 
-It initializes various stuff that's only relevant on Mac OS X.
+It initializes various stuff that's only relevant on macOS.
 
 """
 
@@ -52,4 +52,3 @@ def initialize():
     # on mac os, the app should remain running, even if there is no main window
     # anymore. In this case, we setup a basic global menu.
     app.qApp.setQuitOnLastWindowClosed(False)
-
