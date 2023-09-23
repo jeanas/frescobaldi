@@ -66,8 +66,7 @@ class Paths(preferences.Group):
     def translateUI(self):
         self.setTitle(_("Paths to LilyPond Documentation"))
         self.paths.setToolTip(_(
-            "Add paths or URLs. See \"What's This\" for more information."))
-        self.paths.setWhatsThis(userguide.html("preferences/lilydoc"))
+            "Add paths or URLs. Click Help for more information."))
 
     def loadSettings(self):
         paths = qsettings.get_string_list(QSettings(), "documentation/paths")

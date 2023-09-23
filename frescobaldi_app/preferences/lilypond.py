@@ -106,9 +106,7 @@ class Versions(preferences.Group):
         self.autoVersion.setText(_("Automatically choose LilyPond version from document"))
         self.autoVersion.setToolTip(_(
             "If checked, the document's version determines the LilyPond version to use.\n"
-            "See \"What's This\" for more information."))
-        self.autoVersion.setWhatsThis(userguide.html("preferences/lilypond/autoversion") +
-            _("See also {link}.").format(link=userguide.link("preferences/lilypond/index")))
+            "Click Help for more information."))
 
     def loadSettings(self):
         s = settings()
