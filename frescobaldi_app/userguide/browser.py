@@ -22,22 +22,16 @@ The help browser window.
 """
 
 
-import os
+from pathlib import Path
 
 from PyQt5.QtCore import QSettings, QSize, Qt, QUrl
-from PyQt5.QtGui import QTextDocument
-from PyQt5.QtWidgets import QMainWindow, QTextBrowser
+from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtPrintSupport import QAbstractPrintDialog, QPrintDialog, QPrinter
 
 import app
-import helpers
+import i18n.setup
 import icons
-import simplemarkdown
-
-from . import __path__
-from . import page
-from . import util
-
 
 class Window(QMainWindow):
     """The help browser window."""
@@ -45,23 +39,19 @@ class Window(QMainWindow):
         super().__init__()
         self.setAttribute(Qt.WA_QuitOnClose, False)
 
-        self.browser = Browser(self)
-        self.setCentralWidget(self.browser)
+        self.webview = QWebEngineView(self)
+        self.setCentralWidget(self.webview)
 
         self._toolbar = tb = self.addToolBar('')
         self._back = tb.addAction(icons.get('go-previous'), '')
         self._forw = tb.addAction(icons.get('go-next'), '')
         self._home = tb.addAction(icons.get('go-home'), '')
-        self._toc = tb.addAction(icons.get('help-contents'), '')
         self._print = tb.addAction(icons.get('document-print'), '')
-        self._back.triggered.connect(self.browser.backward)
-        self._forw.triggered.connect(self.browser.forward)
+        self._back.triggered.connect(self.webview.back)
+        self._forw.triggered.connect(self.webview.forward)
         self._home.triggered.connect(self.home)
-        self._toc.triggered.connect(self.toc)
         self._print.triggered.connect(self.print_)
 
-        self.browser.sourceChanged.connect(self.slotSourceChanged)
-        self.browser.historyChanged.connect(self.slotHistoryChanged)
         app.translateUI(self)
         self.loadSettings()
 
@@ -76,77 +66,40 @@ class Window(QMainWindow):
         QSettings().setValue("helpbrowser/size", self.size())
 
     def translateUI(self):
-        self.setCaption()
+        # self.setCaption() # TODO
         self._toolbar.setWindowTitle(_("Toolbar"))
         self._back.setText(_("Back"))
         self._forw.setText(_("Forward"))
         self._home.setText(_("Start"))
-        self._toc.setText(_("Contents"))
         self._print.setText(_("Print"))
-
-    def slotSourceChanged(self):
-        self.setCaption()
-
-    def setCaption(self):
-        title = self.browser.documentTitle() or _("Help")
-        self.setWindowTitle(app.caption(title) + " " + _("Help"))
-
-    def slotHistoryChanged(self):
-        self._back.setEnabled(self.browser.isBackwardAvailable())
-        self._forw.setEnabled(self.browser.isForwardAvailable())
+        self.setWindowTitle(_("Help"))
 
     def home(self):
         self.displayPage('index')
 
-    def toc(self):
-        self.displayPage('toc')
-
     def displayPage(self, name=None):
         """Opens the help browser showing the specified help page."""
-        if name:
-            self.browser.setSource(QUrl("help:" + name))
+        if name is None:
+            name = "index"
+
+        def get_path(lang):
+            return (Path(__file__).parent / "build" / lang / name).with_suffix(".html")
+
+        path = get_path(i18n.setup.current().split("_")[0])
+        if not path.exists(): # certain languages don't have user guide translations
+            path = get_path("en")
+
+        self.webview.load(QUrl.fromLocalFile(str(path)))
         self.show()
         self.activateWindow()
         self.raise_()
 
     def print_(self):
-        printer = QPrinter()
+        printer = self._printer = QPrinter()
         dlg = QPrintDialog(printer, self)
         dlg.setWindowTitle(app.caption(_("Print")))
-        options = (QAbstractPrintDialog.PrintToFile
-                   | QAbstractPrintDialog.PrintShowPageSize
-                   | QAbstractPrintDialog.PrintPageRange)
-        if self.browser.textCursor().hasSelection():
-            options |= QAbstractPrintDialog.PrintSelection
-        dlg.setOptions(options)
         if dlg.exec_():
-            self.browser.print_(printer)
+            self.webview.page().print(printer, self.slotPrintingDone)
 
-
-class Browser(QTextBrowser):
-    def __init__(self, parent):
-        super().__init__(parent)
-        app.settingsChanged.connect(self.reload, 1)
-        self.anchorClicked.connect(self.slotAnchorClicked)
-        self.setOpenLinks(False)
-
-    def slotAnchorClicked(self, url):
-        url = self.source().resolved(url)
-        if url.scheme() == "help":
-            self.setSource(url)
-        else:
-            helpers.openUrl(url)
-
-    def loadResource(self, type, url):
-        if type == QTextDocument.HtmlResource:
-            return util.Formatter().html(url.path())
-        elif type == QTextDocument.ImageResource:
-            url = QUrl.fromLocalFile(os.path.join(__path__[0], url.path()))
-        return super().loadResource(type, url)
-
-    def keyPressEvent(self, ev):
-        if ev.key() == Qt.Key_Escape and int(ev.modifiers()) == 0:
-            self.window().close()
-        super().keyPressEvent(ev)
-
-
+    def slotPrintingDone(self, success):
+        del self._printer

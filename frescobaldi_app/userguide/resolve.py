@@ -30,43 +30,7 @@ guide page.
 import appinfo
 
 
-def appname():
-    return appinfo.appname
-
-def version():
-    return appinfo.version
-
-def author():
-    return appinfo.maintainer
-
-def manual_translated_by():
-    # L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-    translator = _("Translated by Your Name.")
-    if translator != "Translated by Your Name.":
-        return translator
-    return ''
-
-def table_of_contents():
-    """Return the body of the table of contents page."""
-    from .util import cache, format_link
-    from simplemarkdown import html_escape
-    html = ['<ul>']
-    seen = set()
-    def addpage(page):
-        if page not in seen:
-            seen.add(page)
-            html.append("<li>" + format_link(page) + "</li>\n")
-            children = cache.children(page)
-            if children:
-                html.append('<ul>')
-                for p in children:
-                    addpage(p)
-                html.append('</ul>\n')
-    for page in cache.children('index'):
-        addpage(page)
-    html.append('</ul>\n')
-    return ''.join(html)
-
+## TODO
 def snippet_editor_expander():
     """Return the auto-generated list of docstrings of the snippet variables."""
     from snippet import expand
@@ -76,4 +40,3 @@ def snippet_editor_expander():
                     expand.documentation(expand.Expander)))
     text.append("</dl>")
     return ''.join(text)
-
