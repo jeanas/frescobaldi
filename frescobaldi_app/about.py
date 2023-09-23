@@ -32,7 +32,6 @@ import appinfo
 import icons
 import helpers
 import debuginfo
-import userguide.page
 
 
 class AboutDialog(QDialog):
@@ -53,7 +52,6 @@ class AboutDialog(QDialog):
         layout.addWidget(tabw)
 
         tabw.addTab(About(self), _("About"))
-        tabw.addTab(Credits(self), _("Credits"))
         tabw.addTab(Version(self), _("Version"))
 
         button = QDialogButtonBox(QDialogButtonBox.Ok)
@@ -84,15 +82,6 @@ class About(QWidget):
 
     def openLink(self, url):
         helpers.openUrl(QUrl(url))
-
-
-class Credits(QTextBrowser):
-    """Credits widget."""
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setOpenLinks(False)
-        self.anchorClicked.connect(helpers.openUrl)
-        self.setHtml(userguide.page.Page('credits').body())
 
 
 class Version(QTextBrowser):
@@ -138,4 +127,3 @@ html_template = """<html>
 </div></body>
 </html>
 """
-
