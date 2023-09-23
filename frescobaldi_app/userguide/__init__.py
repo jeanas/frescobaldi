@@ -31,7 +31,7 @@ def show(name=None):
     """
     global _browser
     try:
-        _browser.displayPage(name)
+        _browser.displayPage(name or 'index')
     except NameError:
         from . import browser
         _browser = browser.Window()
@@ -56,13 +56,3 @@ def openWhatsThis(widget, enabled=True):
         widget.installEventFilter(whatsthis.handler)
     else:
         widget.removeEventFilter(whatsthis.handler)
-
-def link(page):
-    """Return a HTML link to the page."""
-    from . import util
-    return util.format_link(page)
-
-def html(name):
-    """Return the HTML body for the named help page."""
-    from . import page
-    return page.Page(name).body()
