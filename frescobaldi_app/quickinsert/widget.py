@@ -29,7 +29,7 @@ from PyQt5.QtWidgets import (QComboBox, QHBoxLayout, QLabel, QToolBox,
                              QToolButton, QVBoxLayout, QWidget)
 
 import app
-import userguide.util
+import userguide
 import icons
 import symbols
 import gadgets.toolboxwheeler
@@ -101,8 +101,8 @@ class QuickInsert(QWidget):
         self.setWhatsThis(_(
             "<p>With the Quick Insert Panel you can add various music "
             "elements to the current note or selected music.</p>\n"
-            "<p>See {link} for more information.</p>").format(link=
-                userguide.util.format_link("getting-started/quickinsert")))
+            "<p>See the <a href=\"getting-started/quickinsert\">user guide</a> "
+            "for more information.</p>"))
         self.helpButton.setToolTip(_("Help"))
         self.directionLabel.setText(_("Direction:"))
         for item, text in enumerate((_("Up"), _("Neutral"), _("Down"))):

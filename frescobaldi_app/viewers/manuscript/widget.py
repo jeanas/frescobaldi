@@ -25,7 +25,6 @@ The Manuscript viewer panel widget.
 from viewers import popplerwidget
 from . import contextmenu
 from . import toolbar
-import userguide.util
 
 class ManuscriptViewWidget(popplerwidget.AbstractPopplerWidget):
     def __init__(self, panel):
@@ -36,8 +35,8 @@ class ManuscriptViewWidget(popplerwidget.AbstractPopplerWidget):
         self.setWhatsThis(_(
             "<p>The Manuscript Viewer displays an original manuscript " +
             "one is copying from.</p>\n"
-            "<p>See {link} for more information.</p>").format(link=
-                userguide.util.format_link(self.parent().docPage)))
+            "<p>See the <a href=\"{page}\">user guide</a> for more information.</p>")
+            .format(page=self.parent().docPage))
 
     def createContextMenu(self):
         """Creates the context menu."""
