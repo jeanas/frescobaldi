@@ -126,7 +126,6 @@ plist = dict(
 )
 
 options = {
-    'argv_emulation': True,
     'plist': plist
 }
 
